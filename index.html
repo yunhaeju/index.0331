@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+        @import url('https://fonts.googleapis.com/css2?family=Boldonse&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Boldonse", system-ui;
+        }
+
+        .section {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center; 
+            min-height: 100vh;
+            background-color: rgb(185, 239, 255);
+            overflow: hidden; /* 밖으로 나가는 것 연산x */
+        }
+
+        .section .text {
+            position: relative;
+            color: rgb(16, 95, 127);
+            margin: 40px;
+            max-width: 800px;
+            user-select: none; /* 선택 안되도록 */
+            font-size: 1.5em; /* 약 24px */
+            /* background-color: olivedrab; */
+        }
+
+
+        .section .text span {
+            position: relative;
+            display: inline-block; /* 애니메이션을 위한 인라인 블럭(한 줄을 차지하면서 크기차지도 한다) */
+            cursor: pointer; /* 손가락 커서로 바뀌도록 */
+        }
+
+        .section .text span.active { /* span에 active 추가 됐을 때 이렇게 해 */
+            animation: smoke 2s linear forwards; /* 초기상태로 돌리기 위한 forwards */
+            transform-origin: bottom; /* 밑을 기준으로 */
+        }
+
+        @keyframes smoke {
+            0% {
+                opacity: 1;
+                filter: blur(0);
+                transform: translateX(0) translateY(0) rotate(0deg) scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                pointer-events: none; /* 포인터가 활성화되지 않도록 */                
+            }
+
+            100% {
+                opacity: 0;
+                filter: blur(20px);
+                transform: translateX(300px) translateY(-200px) rotate(90deg) scale(10);
+            }
+        }
+
+
+    </style>
+
+
+
+</head>
+<body>
+<!-- ctrl + shift + i : 콘솔창 업 -->
+
+
+    <div class="section">
+        <p class="text"> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe exercitationem voluptatum voluptate! Dignissimos officiis eum eligendi repellat unde veritatis nemo aspernatur cupiditate animi blanditiis expedita illo cumque voluptatibus ea, velit in reiciendis corrupti! Dolorum magni doloribus porro, doloremque vitae deleniti saepe eligendi quisquam. Totam similique quae error quasi veniam doloremque!</p>
+    </div>
+
+
+
+
+<script>
+
+    const text = document.querySelector('.text');
+    text.innerHTML = text.textContent.replace(/\S/g,"<span>$&</span>")
+    /* innerHTML : 태그를 포함해서 읽어올 때 사용,  */  
+    /* textContent : HTML에서 내용만 불러올 때  */    
+    /* replace : 배열 매소드 */
+
+
+    const letters = document.querySelectorAll('span'); /* querySelectorAll 같은 식별자를 가지고 있는 모든 것을 배열로 불러온다 */
+    
+    for (let i=0; i<letters.length; i++) {
+        letters[i].addEventListener('mouseover', function() {       /* mouseover : 마우스가 위로 올라가면 */
+            letters[i].classList.add('active');
+        })         
+    }
+
+
+
+</script>
+
+
+    
+</body>
+</html>
